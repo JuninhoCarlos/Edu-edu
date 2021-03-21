@@ -1,41 +1,48 @@
 .flex-container-row {
-  display: flex;
+    display: flex;
 }
 
 .flex-container-row .nav {
-  width: 547px;
-  height: 100vh;
-  flex-grow: 0;
-  background: #ffffff;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+    width: 547px;
+    height: 100vh;
+    flex-grow: 0;
+    background: #ffffff;
+    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
 }
 
 .nav > img {
-  margin: 68px 0 68px 0;
-  align-self: center;
-  width: 227px;
-  height: auto;
+    margin: 68px 0 68px 0;
+    align-self: center;
+    width: 227px;
+    height: auto;
 }
 
 .nav .active {
-  color: white;
-  background-color: #47cdff;
+    color: white;
+    background-color: #47cdff;
 }
 
 .nav-item {
-  height: 95px;
-  width: 100%;
-  font-weight: 700;
-  font-size: 30px;
-  color: #cacaca;
-  padding: 32px 0px 26px 0px;
-  margin: 33px 0px;
+    height: 95px;
+    width: 100%;
+    font-weight: 700;
+    font-size: 30px;
+    color: #cacaca;
+    padding: 32px 0px 26px 0px;
+    margin: 20px 0px;
 }
 
 .nav-item:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .content {
-  flex-grow: 1;
+    flex-grow: 1;
+}
+
+.nav-item .icon {
+    width: 37.5px;
+    height: 37.5px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
