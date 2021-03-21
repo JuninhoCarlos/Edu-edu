@@ -13,19 +13,18 @@ const LoginForm = (): JSX.Element => {
       <img src={logo} alt="" />
       <form className="form">
         <div className="form-group relative">
-          <label htmlFor="exampleInputEmail1">Email address</label>
+          <label htmlFor="exampleInputEmail1" className="label">Email</label>
           <img className="icon right-align" src={email} alt="" />
           <input
             type="email"
-            className="form-control"
+            className="form-control my-input input-login"
             id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Email"
+            aria-describedby="emailHelp"            
           />
         </div>
 
         <div className="form-group relative">
-          <label htmlFor="exampleFormControlTextarea1" className="form-label">
+          <label htmlFor="exampleFormControlTextarea1" className="label">
             Password
           </label>
           {seePassword ? (
@@ -61,10 +60,10 @@ const LoginForm = (): JSX.Element => {
             </svg>
           )}
           <input
-            type={seePassword ? "texte" : "password"}
-            className="form-control"
+            type={seePassword ? "text" : "password"}
+            className="form-control my-input input-login"
             id="exampleFormControlInput1"
-            placeholder="Password"
+            placeholder=""
           />
         </div>
         <div className="mb-3">

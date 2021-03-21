@@ -2,6 +2,10 @@
     display: flex;
 }
 
+.flex-container-column {
+    display: flex;
+    flex-direction: column;
+}
 .flex-container-row .nav {
     width: 547px;
     height: 100vh;

@@ -1,0 +1,16 @@
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cadastro-form {
+    width: 672px;
+    height: 910px;
+    padding: 36px 39px;
+    background: #ffffff;
+    border: 1px solid #e1e1e1;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 0px #e3e3e3;
+    border-radius: 25px;
+}
