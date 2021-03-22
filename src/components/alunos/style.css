@@ -1,16 +1,65 @@
 .content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .cadastro-form {
-    width: 672px;
-    height: 910px;
-    padding: 36px 39px;
-    background: #ffffff;
-    border: 1px solid #e1e1e1;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 0px #e3e3e3;
-    border-radius: 25px;
+  width: 672px;
+  /*height: 910px;*/
+  padding: 36px 39px;
+  background: #ffffff;
+  border: 1px solid #e1e1e1;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 0px #e3e3e3;
+  border-radius: 25px;
+}
+
+.avatar {
+  margin-bottom: 2rem;
+}
+
+.avatar img {
+  position: relative;
+  bottom: -0.5em;
+  width: 70%;
+}
+
+.avatar button {
+  z-index: 2;
+}
+
+.padding-left-input {
+  padding-left: 10%;
+  padding-bottom: 0;
+}
+
+.bonequinha {
+  align-self: flex-start;
+  width: 144px;
+  height: 175px;
+  margin: 0 2rem 0 0;
+}
+
+.ano-escolar-p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  color: #47cdff;
+}
+
+.series-p {
+  color: #47cdff;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.info {
+  /*font-weight: 800;*/
+  color: #c4c4c4;
+  font-size: 0.875rem;
 }
