@@ -7,7 +7,7 @@ import hatIcon from "../../assets/icons/icon_hat.png";
 
 const CadastroAluno = (): JSX.Element => {
   return (
-    <div className="d-flex flex-row justify-content-center align-items-center vh-100">
+    <div className="d-flex flex-row justify-content-center align-items-center mt-5">
       <div className="flex-container-column cadastro-form box-shadow">
         <form className="form d-flex flex-column align-items-center">
           {/*Avatar */}

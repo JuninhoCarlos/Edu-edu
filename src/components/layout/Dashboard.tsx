@@ -27,6 +27,9 @@ const Dashboard = (): JSX.Element => {
             <CadastroAluno />
           </Route>
         </Switch>
+        <footer className="text-right text-black-50 p-2 m-2 ">
+          <strong> @ 2021 EduEdu, todos os direitos reservados </strong>
+        </footer>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import iconSettings from "../../assets/icons/icon_settings.png";
 
 const Sidebar = (): JSX.Element => {
   return (
-    <nav className="nav flex-column">
+    <nav className="nav d-flex flex-column">
       <img src={img} alt="" />
       <Link to="/dashboard" className="nav-item active">
         <img src={iconFace} alt="" className="icon" />
