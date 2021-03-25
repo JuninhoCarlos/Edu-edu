@@ -13,20 +13,21 @@ import "./layout.css";
 
 const Dashboard = (): JSX.Element => {
   const { path } = useRouteMatch();
-  console.log("path:", path);
-  console.log("match:", `${path}/teste`);
+
   return (
     <div className="flex-container-row">
       <Sidebar />
-      <Switch>
-        <Route exact path={path}>
-          <ListarAlunos />
-        </Route>
+      <div className="container-fluid bg-mygray px-4 vh-100 overflow-auto">
+        <Switch>
+          <Route exact path={path}>
+            <ListarAlunos />
+          </Route>
 
-        <Route path={`${path}/cadastro`}>
-          <CadastroAluno />
-        </Route>
-      </Switch>
+          <Route path={`${path}/cadastro`}>
+            <CadastroAluno />
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 };

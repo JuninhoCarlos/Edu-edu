@@ -1,10 +1,9 @@
 import React from "react";
 import avatar from "../../assets/kids/carmen.png";
-import "./style.css";
 
 const Card = (): JSX.Element => {
   return (
-    <div className="card m-2 mb-3 card-border" style={{ width: "18rem" }}>
+    <div className="card m-2 mb-3 box-shadow" style={{ width: "18rem" }}>
       <img
         src={avatar}
         style={{ width: "", height: "auto" }}

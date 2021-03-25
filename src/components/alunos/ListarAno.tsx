@@ -7,7 +7,7 @@ interface ListarProps {
 
 const ListarAno = (props: ListarProps): JSX.Element => {
   return (
-    <div className="align-self-start w-100">
+    <div className="align-self-start w-100 mt-3">
       <p className="h2 m-0">
         {" "}
         <strong>{props.ano} Ano </strong>

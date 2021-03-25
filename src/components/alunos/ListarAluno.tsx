@@ -7,7 +7,7 @@ import "./style.css";
 
 const ListarAluno = (): JSX.Element => {
   return (
-    <div className="container-fluid d-flex flex-column align-items-center bg-mygray">
+    <div className="d-flex flex-column align-items-center">
       <BarraDeBusca />
       <ListarAno ano="1" />
       <ListarAno ano="2" />

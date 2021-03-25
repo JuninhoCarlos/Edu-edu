@@ -7,8 +7,8 @@ import hatIcon from "../../assets/icons/icon_hat.png";
 
 const CadastroAluno = (): JSX.Element => {
   return (
-    <div className="content">
-      <div className="flex-container-column cadastro-form">
+    <div className="d-flex flex-row justify-content-center align-items-center vh-100">
+      <div className="flex-container-column cadastro-form box-shadow">
         <form className="form d-flex flex-column align-items-center">
           {/*Avatar */}
           <div className="avatar d-flex flex-column align-items-center">
@@ -101,6 +101,7 @@ const CadastroAluno = (): JSX.Element => {
                   d="M110.044 34.3043C118.606 42.8676 123.922 54.7182 123.922 67.7864V76.5729C120.838 71.5405 117.551 64.1947 115.948 57.0721C113.128 44.5519 104.83 34.9334 86.3877 26.5324C87.3412 26.7556 84.0342 21.0332 89.0252 22.3522C94.2597 23.7524 108.543 32.8433 110.024 34.2637C110.024 34.284 110.024 34.284 110.044 34.3043Z"
                   fill="#2044C6"
                 />
+                Switch
                 <path
                   d="M97.5262 84.6905C104.137 84.6905 109.497 79.3303 109.497 72.7181C109.497 66.1059 104.137 60.7457 97.5262 60.7457C90.9151 60.7457 85.5558 66.1059 85.5558 72.7181C85.5558 79.3303 90.9151 84.6905 97.5262 84.6905Z"
                   fill="white"

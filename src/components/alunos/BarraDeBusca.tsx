@@ -16,7 +16,7 @@ const BarraDeBusca = (): JSX.Element => {
   });
 
   return (
-    <div className="p-2 ml-4 mb-3 mt-3 align-self-center w-75 bg-white my-border my-radius">
+    <div className="py-2 my-3 align-self-center w-100 bg-white my-border my-radius">
       <div className="d-flex flex-row justify-content-between align-items-center">
         <div className="input-group w-25 ml-3 mt-2 mb-2">
           <input
@@ -42,35 +42,38 @@ const BarraDeBusca = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="btn-group btn-group-toggle ">
-          <label
-            className={`border btn my-font ${
-              filtrarPor.nome ? "my-primary-button" : "my-secondary-button"
-            }`}
-          >
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autoComplete="off"
-              onClick={() => setFiltrarPor({ nome: true, ano: false })}
-            />
-            Nome
-          </label>
-          <label
-            className={`border btn my-font ${
-              filtrarPor.ano ? "my-primary-button" : "my-secondary-button"
-            }`}
-          >
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autoComplete="off"
-              onClick={() => setFiltrarPor({ nome: false, ano: true })}
-            />
-            Ano
-          </label>
+        <div className="d-flex flex-column ">
+          <p className="m-0 my-font my-primary-text-color">Filtrar por:</p>
+          <div className="btn-group btn-group-toggle">
+            <label
+              className={`border btn my-font ${
+                filtrarPor.nome ? "my-primary-button" : "my-primary-text-color"
+              }`}
+            >
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autoComplete="off"
+                onClick={() => setFiltrarPor({ nome: true, ano: false })}
+              />
+              Nome
+            </label>
+            <label
+              className={`border btn my-font ${
+                filtrarPor.ano ? "my-primary-button" : "my-primary-text-color"
+              }`}
+            >
+              <input
+                type="radio"
+                name="options"
+                id="option2"
+                autoComplete="off"
+                onClick={() => setFiltrarPor({ nome: false, ano: true })}
+              />
+              Ano
+            </label>
+          </div>
         </div>
 
         <div className="mr-3">
