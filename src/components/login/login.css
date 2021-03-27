@@ -1,117 +1,117 @@
 * {
-  font-family: "Montserrat", sans-serif;
-  box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
 }
 
 .flex-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 0px;
-  margin: 0px;
-  height: 100vh;
-  width: 100vw;
-  background-image: url(../../assets/login_bg.png);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../../assets/login_bg.png);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .flex-container > p {
-  margin: 40px 0px 0px 0px;
-  color: white;
-  font-weight: 700;
-  font-size: 0.875em;
+    margin: 40px 0px 0px 0px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.875em;
 }
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  padding: 0 34px;
-  border: 1px solid #e1e1e1;
-  background: #fff;
-  width: 368px;
-  height: auto;
-  box-shadow: 0px 4px 0px #e3e3e3;
-  border-radius: 25px;
+    padding: 0 34px;
+    border: 1px solid #e1e1e1;
+    background: #fff;
+    width: 368px;
+    height: auto;
+    box-shadow: 0px 4px 0px #e3e3e3;
+    border-radius: 25px;
 }
 .form {
-  width: 100%;
-  margin-bottom: 39px;
+    width: 100%;
+    margin-bottom: 39px;
 }
 
 .relative {
-  position: relative;
+    position: relative;
 }
 
 .right-align {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  margin: 18px;
-  pointer-events: initial;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 18px;
+    pointer-events: initial;
 }
 
 .left-align {
-  position: absolute;
-  left: 5%;
-  top: 40%;
-  margin: 0px;
+    position: absolute;
+    left: 5%;
+    top: 40%;
+    margin: 0px;
 }
 .icon {
-  width: 20px;
-  height: 20px;
-  color: #47cdff;
+    width: 20px;
+    height: 20px;
+    color: #47cdff;
 }
 
 .container > img {
-  display: block;
-  width: 179px;
-  margin: 39px 0px;
+    display: block;
+    width: 179px;
+    margin: 39px 0px;
 }
 
 .my-btn {
-  border: 1px solid #47cdff;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 0px #25abe6;
-  border-radius: 10px;
-  height: 50px;
-  font-weight: 700;
-  width: 100%;
+    border: 1px solid #47cdff;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 0px #25abe6;
+    border-radius: 10px;
+    height: 50px;
+    font-weight: 700;
+    width: 100%;
 }
 
 .my-primary {
-  background-color: #47cdff;
-  padding-top: 14px;
+    background-color: #47cdff;
+    padding-top: 14px;
 }
 
 .my-primary:hover {
-  background-color: #05b7fb;
+    background-color: #05b7fb;
 }
 
 .label {
-  position: absolute;
-  top: -10px;
-  left: 5%;
-  margin: 0;
-  padding: 0 6px;
-  font-size: 0.875em;
-  font-weight: 700;
-  color: #47cdff;
-  background: #fff;
+    position: absolute;
+    top: -10px;
+    left: 5%;
+    margin: 0;
+    padding: 0 6px;
+    font-size: 0.875em;
+    font-weight: 700;
+    color: #47cdff;
+    background: #fff;
 }
 
 .my-input {
-  border: 1px solid #47cdff;
-  border-radius: 6px;
+    border: 1px solid #47cdff;
+    border-radius: 6px;
 }
 
 .input-login {
-  height: 55px;
+    height: 55px;
 }
