@@ -19,10 +19,12 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import { store } from "../app/store";
-import Dashboard from "./layout/Dashboard";
 
 //My components
+import Dashboard from "./layout/Dashboard";
 import Login from "./login/Login";
+import PrivateRoute from "./common/PrivateRoute";
+
 
 const App = (): JSX.Element => {
 
@@ -37,16 +39,19 @@ const App = (): JSX.Element => {
       measurementId: "G-Z8D0DCL7RM"
     };
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-    console.log("inicializei o firebase");
+    firebase.analytics();    
   },[])
 
   return (
     <Provider store={store}>
       <Router>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Login} />            
+
+          <PrivateRoute path="/dashboard">
+            <Dashboard />
+          </PrivateRoute>
+
         </Switch>
       </Router>
     </Provider>

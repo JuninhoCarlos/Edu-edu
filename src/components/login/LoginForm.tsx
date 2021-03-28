@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Field } from 'react-final-form'
-import { useDispatch } from "react-redux"
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useAppDispatch }  from "../../app/store";
+import { useHistory } from "react-router-dom";
 
 import { login } from "../../reducers/authSlice"
 
@@ -9,6 +11,8 @@ import logo from "../../assets/logo.png";
 import email from "../../assets/icons/icon_email.png";
 import eye from "../../assets/icons/eye.svg"
 import eye_slash from "../../assets/icons/eye-slash.svg"
+
+
 
 export interface Login{
   email : string,
@@ -27,11 +31,20 @@ const LoginForm = (): JSX.Element => {
     validators.reduce((error: any, validator: any) => error || validator(value), undefined)
 
   /** Redux state management */
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const history = useHistory();
 
   const onSubmit = async (values:Login) => {
     //e.preventDefault();
-    dispatch(login(values));
+    
+
+    dispatch(login(values))
+      .then(unwrapResult)
+      .then(result => {
+        history.replace("/dashboard")
+      })
+      .catch(error => {console.log("rejected")})
+      
     console.log(values);
     console.log("on submit");
   }
