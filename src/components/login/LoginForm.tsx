@@ -19,6 +19,7 @@ export interface Login {
 const LoginForm = (): JSX.Element => {
   /** Local state */
   const [seePassword, setSeePassword] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   /** Validation form logic */
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,16 +48,32 @@ const LoginForm = (): JSX.Element => {
         history.replace("/dashboard");
       })
       .catch((error) => {
-        console.log("rejected");
+        setLoginError(true);
+        values.password = "";
       });
-
-    console.log(values);
-    console.log("on submit");
   };
 
   return (
     <div className="container">
       <img src={logo} alt="" />
+      {loginError ? (
+        <div
+          className="alert alert-danger alert-dismissible fade show w-100"
+          role="alert"
+        >
+          Credenciais incorretas
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       <Form
         onSubmit={onSubmit}
         render={({ handleSubmit, form, submitting, pristine, values }) => (

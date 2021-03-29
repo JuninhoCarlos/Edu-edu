@@ -9,7 +9,7 @@ interface AuthState {
   user: any | undefined;
 }
 const initialState: AuthState = {
-  isLogged: false,
+  isLogged: localStorage.getItem("isLogged") ? true : false,
   user: undefined,
 };
 
@@ -41,12 +41,13 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
       state.isLogged = true;
-      console.log("o payload e", action.payload);
       state.user = action.payload;
+      localStorage.setItem("isLogged", "true");
       //Tem que ver o precisa na request para salvar o necessario do objeto
     });
 
     builder.addCase(login.rejected, (state, action) => {
+      localStorage.removeItem("isLogged");
       state.isLogged = false;
       state.user = undefined;
     });
