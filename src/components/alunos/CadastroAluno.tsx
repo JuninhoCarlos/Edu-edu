@@ -1,10 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import firebase from "firebase/app";
 import { Form, Field } from "react-final-form";
 
 import "./style.css";
 import boneca from "../../assets/boneca.svg";
-import srGoiaba from "../../assets/kids/sr-goiaba.png";
 import userIcon from "../../assets/icons/icon_user.png";
 import hatIcon from "../../assets/icons/icon_hat.png";
 import required from "../common/validators";
@@ -54,14 +54,6 @@ const CadastroAluno = (): JSX.Element => {
                         >
                             {/*Avatar */}
                             <div className="avatar d-flex flex-column align-items-center">
-                                <img src={srGoiaba} alt="" />
-                                <label
-                                    htmlFor="file-upload"
-                                    style={{ zIndex: 9999 }}
-                                    className="d-flex align-items-center justify-content-center text-center btn btn-light text-primary my-btn"
-                                >
-                                    Mudar Avatar
-                                </label>
                                 <FileField
                                     name="avatar"
                                     id="file-upload"

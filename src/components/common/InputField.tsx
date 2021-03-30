@@ -19,13 +19,11 @@ const InputField = ({ name, validate, icon, label, type, ...props }: Props) => (
                 <label htmlFor="Nome" className="label">
                     {label}
                 </label>
-
                 {icon ? (
                     <img className="icon left-align" src={icon} alt="" />
                 ) : (
                     ""
                 )}
-
                 {meta.error && meta.touched && (
                     <div className="invalid-feedback d-block">{meta.error}</div>
                 )}
