@@ -1,7 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import firebase from "firebase/app";
 import { Form, Field } from "react-final-form";
+
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/firebase-storage";
+
+import { uploadAvatar, addAluno } from "../../reducers/alunosReducer";
+import { useAppDispatch } from "../../app/store";
 
 import "./style.css";
 import boneca from "../../assets/boneca.svg";
@@ -10,28 +15,79 @@ import hatIcon from "../../assets/icons/icon_hat.png";
 import required from "../common/validators";
 import FileField from "../common/FileField";
 import InputField from "../common/InputField";
+//import { unwrapResult } from "@reduxjs/toolkit";
 
 interface Errors {
     autorizacao?: string;
 }
 
+interface Cadastro {
+    avatar: FileList;
+    autorizacao: boolean;
+    nome: string;
+    serie: number;
+    escola: string;
+}
+
 const CadastroAluno = (): JSX.Element => {
-    const onSubmit = (values: any) => {
-        console.log(values);
+    const dispatch = useAppDispatch();
+
+    const onSubmit = (values: Cadastro) => {
+        console.log("mandando", values);
+
+        dispatch(
+            addAluno({
+                nome: values.nome,
+                escola: values.escola,
+                serie: values.serie,
+                avatar: values.avatar![0],
+            })
+        ); /*
+            .then(unwrapResult)
+            .then((data) => {
+                console.log("Deu certo", data);
+            })
+            .catch((err) => {});*/
+
+        const storageRef = firebase.storage().ref();
+        const imgRef = storageRef.child("images");
+        const fileName = "oxente.jpg";
+        const spaceRef = imgRef.child(fileName);
         /*
-    const db = firebase.firestore();
-    db.collection("users")
-      .add({
-        first: "Ada",
-        last: "Lovelace",
-        born: 1815,
-      })
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });*/
+        spaceRef
+            .put(values.avatar![0])
+            .then((snapshot) => {
+                console.log("uploaded a file");
+                console.log(snapshot);
+            })
+            .catch((e) => {
+                console.log("error", e);
+            });*/
+        /*
+        spaceRef
+            .getDownloadURL()
+            .then(function (url) {
+                // `url` is the download URL for 'images/stars.jpg'
+                // This can be downloaded directly:
+                /*
+                var xhr = new XMLHttpRequest();
+                xhr.responseType = "blob";
+                xhr.onload = function (event) {
+                    var blob = xhr.response;
+                };
+                xhr.open("GET", url);
+                xhr.send();*/
+        // Or inserted into an <img> element:
+        //console.log(url);
+        //            })
+        //      .catch(function (error) {
+        // Handle any errors
+        //    });*/
+
+        //console.log(spaceRef.bucket);
+        //console.log(spaceRef.fullPath);
+        // Create a storage reference from our storage service
+        //var storageRef = storage.ref();
     };
 
     return (
@@ -43,7 +99,7 @@ const CadastroAluno = (): JSX.Element => {
                         const errors: Errors = {};
                         if (!values.autorizacao) {
                             errors.autorizacao =
-                                "Você de concordar com nossa políticas para se cadastrar";
+                                "Você deve concordar com nossa política para se cadastrar";
                         }
                         return errors;
                     }}
@@ -93,7 +149,7 @@ const CadastroAluno = (): JSX.Element => {
                                     <div className="series-p d-flex justify-content-between">
                                         <p>Pre</p> <p>1</p> <p>2</p> <p>3</p>
                                     </div>
-                                    <Field name="serie">
+                                    <Field name="serie" initialValue={1}>
                                         {({ meta, input }) => (
                                             <>
                                                 <input
