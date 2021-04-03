@@ -1,31 +1,37 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { getAlunosBySerie } from "../../reducers/alunosReducer";
+import { selectAlunosBySerie } from "../../reducers/alunosReducer";
 import Card from "./Card";
 
 interface ListarProps {
-    ano: Number;
+    ano: number;
 }
 
 const ListarAno = (props: ListarProps) => {
     const alunos = useSelector((state: RootState) =>
-        getAlunosBySerie(state, props.ano)
+        selectAlunosBySerie(state, props.ano)
     );
-    useEffect(() => {
-        console.log("Alunos do ano ", props.ano);
+    /*useEffect(() => {
+        console.log("aluno do ano", props.ano);
         console.log(alunos);
-    }, [alunos]);
-
+    }, [alunos]);*/
     return (
         <div className="align-self-start w-100 mt-3">
             <p className="h2 m-0">
-                <strong>{props.ano} Ano </strong>
+                <strong>{props.ano}º Ano </strong>
             </p>
             <hr className="mt-0 mb-2"></hr>
             <div className="d-flex flew-row">
-                <Card />
-                <Card />
+                {alunos.map((element) => (
+                    <Card
+                        ano={props.ano}
+                        id={element.id}
+                        nome={element.nome}
+                        avatarUrl={element.avatarUrl}
+                        key={element.id}
+                    />
+                ))}
             </div>
         </div>
     );

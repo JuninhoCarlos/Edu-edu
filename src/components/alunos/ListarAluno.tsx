@@ -3,8 +3,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { RootState, useAppDispatch } from "../../app/store";
-import { getAlunos } from "../../reducers/alunosReducer";
-import { getSeries, getAlunosBySerie } from "../../reducers/alunosReducer";
+import { getAlunos, selectSeries } from "../../reducers/alunosReducer";
 
 import BarraDeBusca from "./BarraDeBusca";
 import ListarAno from "./ListarAno";
@@ -13,26 +12,21 @@ import "./style.css";
 
 const ListarAluno = () => {
     const dispatch = useAppDispatch();
-    const series = useSelector(getSeries);
-    const test = useSelector((state: RootState) => getAlunosBySerie(state, 1));
+    const series = useSelector(selectSeries);
+    const status = useSelector((state: RootState) => state.alunos.status);
 
     useEffect(() => {
-        console.log("effect listar aluno");
         dispatch(getAlunos());
-    }, []);
-
-    useEffect(() => {
-        console.log("test");
-        console.log(test);
-        console.log(series);
-    }, [test]);
+    }, [dispatch]);
 
     return (
         <div className="d-flex flex-column align-items-center">
             <BarraDeBusca />
-            {series.map((element, index) => (
-                <ListarAno ano={element} key={index} />
-            ))}
+            {status === "loading"
+                ? "Carregando"
+                : series.map((element, index) => (
+                      <ListarAno ano={element} key={index} />
+                  ))}
         </div>
     );
 };

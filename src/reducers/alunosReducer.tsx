@@ -3,7 +3,6 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/firebase-storage";
-import { act } from "react-dom/test-utils";
 
 import { RootState } from "../app/store";
 
@@ -11,33 +10,28 @@ interface Aluno {
     id?: string;
     nome: string;
     escola: string;
-    avatar?: File;
+    avatar?: File | undefined;
+    avatarUrl?: string | undefined;
     serie: number;
 }
 
 interface Avatar {
     fileName: string;
-    file: File;
+    file?: File;
+    url?: string;
 }
 
 interface AlunosState {
     alunos: Array<Aluno>;
-    status: "loading" | "done";
+    status: "loading" | "completed";
 }
 
-export const uploadAvatar = createAsyncThunk(
+const uploadAvatar = createAsyncThunk(
     "alunos/uploadAvatar",
     async (avatar: Avatar) => {
         const srcRef = firebase.storage().ref().child("avatars");
         const spaceRef = srcRef.child(avatar.fileName);
-        await spaceRef
-            .put(avatar.file)
-            .then((snapshot) => {
-                return snapshot;
-            })
-            .catch((e) => {
-                return Promise.reject("Erro ao fazer upload do avatar");
-            });
+        return await spaceRef.put(avatar.file!);
     }
 );
 
@@ -58,51 +52,63 @@ export const addAluno = createAsyncThunk(
     async (aluno: Aluno, { dispatch }) => {
         const db = firebase.firestore();
 
-        await db
-            .collection("alunos")
-            .add({
-                nome: aluno.nome,
-                serie: aluno.serie,
-                escola: aluno.escola,
-            })
-            .then((docRef) => {
-                if (aluno.avatar) {
-                    dispatch(
-                        uploadAvatar({
-                            fileName: docRef.id,
-                            file: aluno.avatar,
-                        })
-                    );
-                }
-                return docRef.id;
-            })
-            .catch((error) => {
-                return Promise.reject(error);
-            });
+        const promiseInsertAluno = db.collection("alunos").add({
+            nome: aluno.nome,
+            serie: aluno.serie,
+            escola: aluno.escola,
+        });
+        //Espera a inserção no banco
+        const data = await promiseInsertAluno;
+        console.log("Dado da promessa eh:", data);
+        //Faz o upload do avatar se diferente do default
+        let uploadPromise;
+        if (aluno.avatar) {
+            uploadPromise = dispatch(
+                uploadAvatar({
+                    fileName: data.id,
+                    file: aluno.avatar,
+                })
+            );
+
+            await uploadPromise;
+
+            //pega a url para a imagem e atualiza em aluno
+            const avatarRef = firebase
+                .storage()
+                .ref()
+                .child("avatars")
+                .child(data.id);
+
+            const url = await avatarRef.getDownloadURL();
+            const updateUrlAvatar = db.collection("alunos").doc(data.id).set(
+                {
+                    avatarUrl: url,
+                },
+                { merge: true }
+            );
+            return await updateUrlAvatar;
+        }
     }
 );
 
 const initialState: AlunosState = {
     alunos: [],
-    status: "done",
+    status: "completed",
 };
 const alunosReducer = createSlice({
     name: "alunos",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(addAluno.fulfilled, (state, action) => {
-            //state.alunos.push(action)
-        });
-        builder.addCase(addAluno.pending, (state, action) => {
-            console.log("pending addAluno");
-        });
-        builder.addCase(addAluno.rejected, (state, action) => {
-            console.log("rejected addAluno");
-            console.log(action.error);
+        builder.addCase(addAluno.fulfilled, (state, action) => {});
+        builder.addCase(addAluno.pending, (state, action) => {});
+        builder.addCase(addAluno.rejected, (state, action) => {});
+        builder.addCase(getAlunos.pending, (state, action) => {
+            state.status = "loading";
         });
         builder.addCase(getAlunos.fulfilled, (state, action) => {
             state.alunos = action.payload;
+            state.status = "completed";
         });
         builder.addCase(getAlunos.rejected, (state, action) => {
             console.log(action.error);
@@ -111,7 +117,7 @@ const alunosReducer = createSlice({
 });
 
 //selectors
-export const getSeries = (state: RootState) => {
+export const selectSeries = (state: RootState) => {
     const series: Array<number> = [];
     state.alunos.alunos.forEach((aluno) => {
         if (!series.find((serie) => serie === aluno.serie))
@@ -120,7 +126,7 @@ export const getSeries = (state: RootState) => {
     return series;
 };
 
-export const getAlunosBySerie = (state: RootState, serie: Number) =>
+export const selectAlunosBySerie = (state: RootState, serie: Number) =>
     state.alunos.alunos.filter((aluno) => aluno.serie === serie);
 
 //const selectTodoById = (state, todoId) => {

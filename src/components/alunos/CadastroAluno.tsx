@@ -36,8 +36,6 @@ const CadastroAluno = () => {
     const history = useHistory();
 
     const onSubmit = async (values: Cadastro) => {
-        console.log("mandando", values);
-
         dispatch(
             addAluno({
                 nome: values.nome,
@@ -53,47 +51,6 @@ const CadastroAluno = () => {
             .catch((err) => {
                 console.log("Error ao cadastrar", err);
             });
-
-        const storageRef = firebase.storage().ref();
-        const imgRef = storageRef.child("images");
-        const fileName = "oxente.jpg";
-        const spaceRef = imgRef.child(fileName);
-        /*
-        spaceRef
-            .put(values.avatar![0])
-            .then((snapshot) => {
-                console.log("uploaded a file");
-                console.log(snapshot);
-            })
-            .catch((e) => {
-                console.log("error", e);
-            });*/
-        /*
-        spaceRef
-            .getDownloadURL()
-            .then(function (url) {
-                // `url` is the download URL for 'images/stars.jpg'
-                // This can be downloaded directly:
-                /*
-                var xhr = new XMLHttpRequest();
-                xhr.responseType = "blob";
-                xhr.onload = function (event) {
-                    var blob = xhr.response;
-                };
-                xhr.open("GET", url);
-                xhr.send();*/
-        // Or inserted into an <img> element:
-        //console.log(url);
-        //            })
-        //      .catch(function (error) {
-        // Handle any errors
-        //    });*/
-
-        //console.log(spaceRef.bucket);
-        //console.log(spaceRef.fullPath);
-        // Create a storage reference from our storage service
-        //var storageRef = storage.ref();
-        console.log("saindo do submit");
     };
 
     return (
