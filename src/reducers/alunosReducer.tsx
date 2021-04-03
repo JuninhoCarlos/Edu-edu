@@ -6,6 +6,7 @@ import "firebase/firebase-storage";
 
 import { RootState } from "../app/store";
 
+/* Definições de tipos de dados */
 interface Aluno {
     id?: string;
     nome: string;
@@ -21,17 +22,25 @@ interface Avatar {
     url?: string;
 }
 
+interface FilterType {
+    type: "name" | "grade";
+    value: string;
+}
+
 interface AlunosState {
     alunos: Array<Aluno>;
+    filter: boolean;
+    filterObj: FilterType;
     status: "loading" | "completed";
 }
 
+/* Ações assíncronas (THUNKs) */
 const uploadAvatar = createAsyncThunk(
     "alunos/uploadAvatar",
     async (avatar: Avatar) => {
         const srcRef = firebase.storage().ref().child("avatars");
         const spaceRef = srcRef.child(avatar.fileName);
-        return await spaceRef.put(avatar.file!);
+        await spaceRef.put(avatar.file!);
     }
 );
 
@@ -59,7 +68,6 @@ export const addAluno = createAsyncThunk(
         });
         //Espera a inserção no banco
         const data = await promiseInsertAluno;
-        console.log("Dado da promessa eh:", data);
         //Faz o upload do avatar se diferente do default
         let uploadPromise;
         if (aluno.avatar) {
@@ -86,39 +94,54 @@ export const addAluno = createAsyncThunk(
                 },
                 { merge: true }
             );
-            return await updateUrlAvatar;
+            await updateUrlAvatar;
+            return data.id;
         }
     }
 );
 
+/* Estado inicial */
 const initialState: AlunosState = {
     alunos: [],
     status: "completed",
+    filter: false,
+    filterObj: { type: "name", value: "" },
 };
+
+/* Definição do Slice */
 const alunosReducer = createSlice({
     name: "alunos",
     initialState,
-    reducers: {},
+    reducers: {
+        setFilter: (state, action: PayloadAction<FilterType>) => {
+            state.filter = true;
+            state.filterObj = action.payload;
+        },
+        unsetFilter: (state) => {
+            state.filter = false;
+        },
+    },
     extraReducers: (builder) => {
-        builder.addCase(addAluno.fulfilled, (state, action) => {});
-        builder.addCase(addAluno.pending, (state, action) => {});
-        builder.addCase(addAluno.rejected, (state, action) => {});
-        builder.addCase(getAlunos.pending, (state, action) => {
+        builder.addCase(addAluno.fulfilled, () => {});
+        builder.addCase(addAluno.pending, () => {});
+        builder.addCase(addAluno.rejected, () => {});
+        builder.addCase(getAlunos.pending, (state) => {
             state.status = "loading";
         });
         builder.addCase(getAlunos.fulfilled, (state, action) => {
             state.alunos = action.payload;
             state.status = "completed";
         });
-        builder.addCase(getAlunos.rejected, (state, action) => {
-            console.log(action.error);
-        });
+        builder.addCase(getAlunos.rejected, () => {});
     },
 });
 
-//selectors
+//Seletores
 export const selectSeries = (state: RootState) => {
     const series: Array<number> = [];
+    if (state.alunos.filter && state.alunos.filterObj.type === "grade") {
+        return series;
+    }
     state.alunos.alunos.forEach((aluno) => {
         if (!series.find((serie) => serie === aluno.serie))
             series.push(aluno.serie);
@@ -126,12 +149,17 @@ export const selectSeries = (state: RootState) => {
     return series;
 };
 
-export const selectAlunosBySerie = (state: RootState, serie: Number) =>
-    state.alunos.alunos.filter((aluno) => aluno.serie === serie);
+export const selectAlunosBySerie = (state: RootState, serie: Number) => {
+    const regex = new RegExp(`^${state.alunos.filterObj.value}`);
+    if (state.alunos.filter && state.alunos.filterObj.type === "name") {
+        return state.alunos.alunos.filter(
+            (aluno) => aluno.serie === serie && regex.test(aluno.nome)
+        );
+    }
+    //Retorna tudo caso não tenha filtro aplicado
+    return state.alunos.alunos.filter((aluno) => aluno.serie === serie);
+};
 
-//const selectTodoById = (state, todoId) => {
-//        return state.todos.find(todo => todo.id === todoId)
-//   }
-//const todo = useSelector(state => selectTodoById(state, id))
+export const { setFilter, unsetFilter } = alunosReducer.actions;
 
 export default alunosReducer.reducer;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { selectAlunosBySerie } from "../../reducers/alunosReducer";
@@ -12,10 +12,7 @@ const ListarAno = (props: ListarProps) => {
     const alunos = useSelector((state: RootState) =>
         selectAlunosBySerie(state, props.ano)
     );
-    /*useEffect(() => {
-        console.log("aluno do ano", props.ano);
-        console.log(alunos);
-    }, [alunos]);*/
+
     return (
         <div className="align-self-start w-100 mt-3">
             <p className="h2 m-0">

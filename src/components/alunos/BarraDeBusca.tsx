@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, useRouteMatch } from "react-router-dom";
+import { useAppDispatch } from "../../app/store";
+import { setFilter, unsetFilter } from "../../reducers/alunosReducer";
 import "../login/login.css";
 
 interface Filtro {
@@ -10,11 +12,28 @@ interface Filtro {
 
 const BarraDeBusca = () => {
     const { url } = useRouteMatch();
+    const dispatch = useAppDispatch();
 
     const [filtrarPor, setFiltrarPor] = useState<Filtro>({
-        nome: false,
-        ano: true,
+        nome: true,
+        ano: false,
     });
+
+    const [filtervalue, setFilterData] = useState<string>("");
+
+    useEffect(() => {
+        if (filtervalue.length >= 3) {
+            console.log("filtra");
+            dispatch(
+                setFilter({
+                    type: filtrarPor.nome ? "name" : "grade",
+                    value: filtervalue,
+                })
+            );
+            return;
+        }
+        dispatch(unsetFilter());
+    }, [filtervalue, dispatch, filtrarPor.nome]);
 
     return (
         <div className="py-2 my-3 align-self-center w-100 bg-white my-border my-radius">
@@ -26,6 +45,10 @@ const BarraDeBusca = () => {
                         placeholder="Pesquisar"
                         aria-label="Input group example"
                         aria-describedby="basic-addon1"
+                        value={filtervalue}
+                        onChange={(e) => {
+                            setFilterData(e.target.value);
+                        }}
                     />
                     <div className="input-group-append ">
                         <span className="input-group-text" id="basic-addon1">
