@@ -66,7 +66,7 @@ const CadastroAluno = () => {
                         }
                         return errors;
                     }}
-                    render={({ handleSubmit }) => (
+                    render={({ handleSubmit, submitting }) => (
                         <form
                             className="form d-flex flex-column align-items-center"
                             onSubmit={handleSubmit}
@@ -171,6 +171,7 @@ const CadastroAluno = () => {
                                 <button
                                     type="submit"
                                     className="btn btn-primary text-white my-btn my-primary "
+                                    disabled={submitting}
                                 >
                                     Adicionar Aluno
                                 </button>

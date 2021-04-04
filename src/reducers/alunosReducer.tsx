@@ -139,9 +139,10 @@ const alunosReducer = createSlice({
 //Seletores
 export const selectSeries = (state: RootState) => {
     const series: Array<number> = [];
+    /*
     if (state.alunos.filter && state.alunos.filterObj.type === "grade") {
         return series;
-    }
+    }*/
     state.alunos.alunos.forEach((aluno) => {
         if (!series.find((serie) => serie === aluno.serie))
             series.push(aluno.serie);
@@ -150,10 +151,11 @@ export const selectSeries = (state: RootState) => {
 };
 
 export const selectAlunosBySerie = (state: RootState, serie: Number) => {
-    const regex = new RegExp(`^${state.alunos.filterObj.value}`);
+    const regex = new RegExp(`^${state.alunos.filterObj.value.toLowerCase()}`);
     if (state.alunos.filter && state.alunos.filterObj.type === "name") {
         return state.alunos.alunos.filter(
-            (aluno) => aluno.serie === serie && regex.test(aluno.nome)
+            (aluno) =>
+                aluno.serie === serie && regex.test(aluno.nome.toLowerCase())
         );
     }
     //Retorna tudo caso não tenha filtro aplicado

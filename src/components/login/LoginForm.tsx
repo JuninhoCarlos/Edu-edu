@@ -40,8 +40,6 @@ const LoginForm = (): JSX.Element => {
     const history = useHistory();
 
     const onSubmit = async (values: Login) => {
-        //e.preventDefault();
-
         dispatch(login(values))
             .then(unwrapResult)
             .then((result) => {
@@ -49,7 +47,6 @@ const LoginForm = (): JSX.Element => {
             })
             .catch((error) => {
                 setLoginError(true);
-                values.password = "";
             });
     };
 
@@ -67,6 +64,7 @@ const LoginForm = (): JSX.Element => {
                         className="close"
                         data-dismiss="alert"
                         aria-label="Close"
+                        onClick={() => setLoginError(false)}
                     >
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -76,7 +74,7 @@ const LoginForm = (): JSX.Element => {
             )}
             <Form
                 onSubmit={onSubmit}
-                render={({ handleSubmit }) => (
+                render={({ handleSubmit, submitting }) => (
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="form-group relative">
                             <Field
@@ -160,6 +158,7 @@ const LoginForm = (): JSX.Element => {
                                             <div className="invalid-feedback d-block">
                                                 {meta.error}
                                             </div>
+                                            //my-btn my-primary
                                         )}
                                     </>
                                 )}
@@ -169,6 +168,7 @@ const LoginForm = (): JSX.Element => {
                             <button
                                 type="submit"
                                 className="btn btn-primary text-white my-btn my-primary"
+                                disabled={submitting}
                             >
                                 Login
                             </button>
