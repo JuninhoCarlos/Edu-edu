@@ -22,11 +22,18 @@ const ListarAluno = () => {
     return (
         <div className="container-fluid">
             <BarraDeBusca />
-            {status === "loading"
-                ? "Carregando"
-                : series.map((element, index) => (
-                      <ListarAno ano={element} key={index} />
-                  ))}
+
+            {status === "loading" ? (
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            ) : (
+                series.map((element, index) => (
+                    <ListarAno ano={element} key={index} />
+                ))
+            )}
         </div>
     );
 };
